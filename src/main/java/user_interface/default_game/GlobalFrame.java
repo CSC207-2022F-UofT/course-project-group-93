@@ -1,6 +1,5 @@
 package user_interface.default_game;
 
-import use_cases.login_leaderboard.RegisterUser;
 import user_interface.login_leaderboard.LoginPanel;
 import user_interface.login_leaderboard.RegisterPanel;
 import user_interface.login_leaderboard.WelcomePanel;
@@ -31,8 +30,28 @@ public class GlobalFrame {
      */
     public void setWelcomePanel() {
         WelcomePanel welcome = new WelcomePanel();
+        RegisterPanel register = new RegisterPanel();
+        LoginPanel login = new LoginPanel();
+        JToolBar toolbar =  new JToolBar();
 
-        window.add(welcome);
+
+        JButton next = new JButton("next");
+        JButton prev = new JButton("prev");
+        toolbar.add(next);
+        toolbar.add(prev);
+
+        Container container = window.getContentPane();
+        CardLayout cardlayout = new CardLayout();
+        container.setLayout(cardlayout);
+        container.add(welcome,"welcome");
+        container.add(login,"login");
+        container.add(register,"register");
+
+        toolbar.setVisible(true);
+
+        container.add(toolbar);
+
+        // window.add(toolbar);
 
 
         // add extra methods in welcomepanel to ensure this works
