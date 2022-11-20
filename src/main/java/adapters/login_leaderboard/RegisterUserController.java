@@ -7,8 +7,8 @@ import use_cases.login_leaderboard.RegisterUser;
 public class RegisterUserController {
 
 
-    public static RegisterUser invokeRegisterUserController(String username, String email, String pwd) {
-        return new RegisterUser(username, email, pwd);
+    public static void invokeRegisterUserController(String username, String email, String pwd) {
+        new RegisterUser(username, email, pwd);
     }
 }
 
