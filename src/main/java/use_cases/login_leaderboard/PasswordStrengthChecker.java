@@ -5,7 +5,13 @@ package use_cases.login_leaderboard;
  * allow the user to re-enter a new password.
  */
 public class PasswordStrengthChecker {
-
+    /***
+     * Checks whether the string has at least one capital letter,
+     * one numerical character and one special character by comparing ascii values within
+     * the respective character class's ascii ranges.
+     * @param pwd password.
+     * @return boolean to see whether the password was strong enough.
+     */
     public static boolean check(String pwd){
         int caps = 0;
         int nums = 0;
