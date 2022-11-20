@@ -34,17 +34,6 @@ public class GlobalFrame {
 
         window.add(welcome);
 
-        if (welcome.state == 0){
-            RegisterPanel r = new RegisterPanel();
-            r.setVisible(true);
-            welcome.add(new RegisterPanel());
-        }
-        else if (welcome.state == 1){
-            LoginPanel l = new LoginPanel();
-            l.setVisible(true);
-            welcome.add(new LoginPanel());
-        }
-
 
         // add extra methods in welcomepanel to ensure this works
         // properly when needed. For now, testing whether panel

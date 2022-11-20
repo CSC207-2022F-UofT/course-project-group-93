@@ -22,7 +22,7 @@ public class Main {
     private static void setupGame() {
         GlobalFrame globalFrame = new GlobalFrame();
         globalFrame.setWelcomePanel();
-        tempDefaultGameRunner();
+        //tempDefaultGameRunner();
     }
 
     /**
