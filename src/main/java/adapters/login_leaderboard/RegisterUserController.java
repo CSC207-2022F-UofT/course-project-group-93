@@ -12,10 +12,3 @@ public class RegisterUserController {
     }
 }
 
-
-
-
-
-
-
-}
