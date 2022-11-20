@@ -13,7 +13,7 @@ public class User {
     private int mediumScore;
     private int hardScore;
 
-    public User(String username, String password, String email) {
+    public User(String username, String email, String password) {
         this.USERNAME = username;
         this.password = password;
         this.EMAIL = email;

@@ -1,5 +1,7 @@
 package user_interface.login_leaderboard;
 
+import adapters.login_leaderboard.RegisterUserController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -58,17 +60,11 @@ public class RegisterPanel extends Panel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String passedUserName = username.getText();
-        String passedEmail = email.getText();
-        String passedPassword = String.valueOf(password.getPassword());
-        System.out.println(passedPassword);
-    }
+        String pwd = String.valueOf(password.getPassword());
 
-    public void SignUp() {
+        RegisterUserController.invokeRegisterUserController(username.getText(),
+                email.getText(), pwd);
 
     }
 
-    public void IsValidUser() {
-
-    }
 }
