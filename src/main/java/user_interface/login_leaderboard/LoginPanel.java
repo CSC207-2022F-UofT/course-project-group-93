@@ -13,6 +13,10 @@ public class LoginPanel extends Panel implements ActionListener {
     private String username;
     private String password;
 
+    /***
+     * Constructs the login panel where the user can enter their username
+     * and password.
+     */
     public LoginPanel() {
 
         this.build();
@@ -54,5 +58,4 @@ public class LoginPanel extends Panel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
     }
-
 }

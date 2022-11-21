@@ -5,7 +5,9 @@ package user_interface.login_leaderboard;
  */
 public class LeaderboardsPanel extends Panel {
 
+    /***
+     * Constructs the leaderboards Panel.
+     */
     public LeaderboardsPanel() {
-
     }
 }

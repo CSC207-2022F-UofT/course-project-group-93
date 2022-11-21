@@ -2,66 +2,64 @@ package adapters.login_leaderboard;
 
 import use_cases.login_leaderboard.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * Transforms the information from all three leaderboards into a viewable format.
- * Note: Add comments for instance variables
- * Note: Include the case when there are less than 10 users.
  */
 public class LeaderboardPresenter {
-    private final Map<String, Integer> EASYSCORES = new HashMap<>();
-    private final Map<String, Integer> MEDSCORES = new HashMap<>();
-    private final Map<String, Integer> HARDSCORES = new HashMap<>();
+    private final ArrayList<String> EASYSCORES = new ArrayList<>();
+    private final ArrayList<String> MEDSCORES = new ArrayList<>();
+    private final ArrayList<String> HARDSCORES = new ArrayList<>();
     private final LeaderboardGenerator Scores = new LeaderboardGenerator();
-    private final IFileInput file;
-
-    public LeaderboardPresenter(IFileInput file) {
-        this.file = file;
-    }
 
     /**
-     * return the top 10 easy-level user scores.
+     * Return the top 10 easy-level user scores. If there are less than 10 scores,
+     * return the stored scores.
      * @return : A hashmap mapping the top 10 users username to easy scores.
      */
-    public Map<String, Integer> getTop10Easy() {
-        for (int i = 0; i < 10; i ++){
-            EASYSCORES.put(Scores.sortEasy().get(i).getUsername(),
-                    Scores.sortEasy().get(i).getEasyScore());
-        }
-        return EASYSCORES;
+    public ArrayList<String> getTop10Easy() {
+        ArrayList<String> arr = Scores.sortEasy();
+        for (int i = 0; i < 10; i++){
+            if (i < arr.size()){
+                EASYSCORES.add(arr.get(i));
+            }
+        } return EASYSCORES;
     }
 
     /**
      * return the top 10 medium-level user scores.
+     *
      * @return : A hashmap mapping the top 10 users username to medium scores.
      */
-    public Map<String, Integer> getTop10Med() {
+    public ArrayList<String> getTop10Med() {
+        ArrayList<String> arr = Scores.sortMedium();
         for (int i = 0; i < 10; i++){
-            MEDSCORES.put(Scores.sortMedium().get(i).getUsername(),
-                    Scores.sortMedium().get(i).getMediumScore());
-        }
-        return MEDSCORES;
+            if (i < arr.size()){
+                MEDSCORES.add(arr.get(i));
+            }
+        } return MEDSCORES;
     }
 
     /**
      * return the top 10 hard-level user scores.
+     *
      * @return : A hashmap mapping the top 10 users username to easy scores.
      */
-    public Map<String, Integer> getTop10Hard() {
-
+    public ArrayList<String> getTop10Hard() {
+        ArrayList<String> arr = Scores.sortHard();
         for (int i = 0; i < 10; i++){
-            HARDSCORES.put(Scores.sortHard().get(i).getUsername(),
-                    Scores.sortHard().get(i).getHardScore());
-        }
-        return HARDSCORES;
+            if (i < arr.size()){
+                HARDSCORES.add(arr.get(i));
+            }
+        } return HARDSCORES;
     }
 
     /**
      * Update the leaderboard generator to include all users.
      */
-    public void saveUsers(){
+    public void saveUsers(ArrayList<ArrayList<String>> data){
+        IFileInput file = () -> data;
         FileUser users = new FileUser(file);
         Scores.setUsers(users.prevUsers());
     }

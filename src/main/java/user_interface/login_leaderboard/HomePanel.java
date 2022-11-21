@@ -7,7 +7,12 @@ import javax.swing.*;
  */
 public class HomePanel extends Panel {
 
-    public HomePanel() {
 
+    /***
+     * Constructs the MAIN GAME Panel where
+     * you have the option to play the game, or create
+     * a custom maze OR view the leaderboard.
+     */
+    public HomePanel() {
     }
 }

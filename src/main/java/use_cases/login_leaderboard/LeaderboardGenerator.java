@@ -26,7 +26,7 @@ public class LeaderboardGenerator {
 
     /**
      * Updating the map with the previous users.
-     * @param users : A map of all precious users.
+     * @param users : A map of all previous users.
      */
     public void setUsers(Map<String, User> users){
         this.users = users;
@@ -36,29 +36,49 @@ public class LeaderboardGenerator {
      * Updating and sorting the easy-level scores.
      * @return : A sorted array list of User objects, sorted by Users easy scores
      */
-    public ArrayList<User> sortEasy() {
+    public ArrayList<String> sortEasy() {
         EASY.addAll(users.values());
         EASY.sort(new EasyLeaderboard());
-        return EASY;
+
+        ArrayList<String> easySorted = new ArrayList<>();
+        for (User user : EASY) {
+            easySorted.add(user.getUsername() + " " + user.getEasyScore());
+        }
+
+        return easySorted;
     }
 
     /**
      * Updating and sorting the medium-level scores.
+     *
      * @return : A sorted array list of User objects, sorted by Users medium scores
      */
-    public ArrayList<User> sortMedium() {
+    public ArrayList<String> sortMedium() {
         MEDIUM.addAll(users.values());
         MEDIUM.sort(new MediumLeaderboard());
-        return MEDIUM;
+
+        ArrayList<String> medSorted = new ArrayList<>();
+        for (User user : MEDIUM) {
+            medSorted.add(user.getUsername() + " " + user.getMediumScore());
+        }
+
+        return medSorted;
     }
 
     /**
      * Updating and sorting the hard-level scores.
+     *
      * @return : A sorted array list of User objects, sorted by Users hard scores
      */
-    public ArrayList<User> sortHard() {
+    public ArrayList<String> sortHard() {
         HARD.addAll(users.values());
         HARD.sort(new HardLeaderboard());
-        return HARD;
+
+        ArrayList<String> hardScore = new ArrayList<>();
+        for (User user : HARD) {
+            hardScore.add(user.getUsername() + " " + user.getHardScore());
+        }
+
+        return hardScore;
     }
 }

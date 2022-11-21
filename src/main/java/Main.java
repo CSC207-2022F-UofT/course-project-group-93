@@ -1,6 +1,10 @@
+import adapters.login_leaderboard.RegisterUserController;
+import use_cases.login_leaderboard.RegisterUserInputBoundary;
+import use_cases.login_leaderboard.RegisterUser;
 import user_interface.custom_game.custom_game_panels.CustomGamePresenter;
 import user_interface.default_game.GlobalFrame;
 import user_interface.default_game.GamePanel;
+import user_interface.login_leaderboard.RegisterPanel;
 
 /**
  * Run the game
@@ -39,5 +43,21 @@ public class Main {
     private static void tempDefaultGameRunner(){
         GamePanel gamePanelUI = new GamePanel();
         gamePanelUI.createGamePanel();
+    }
+
+    private static void createUsecaseEngine(){
+        // Usecase + adapters framework
+        RegisterUserInputBoundary input = new RegisterUser();
+        RegisterUserController controller = new RegisterUserController(input);
+
+
+        // UI
+        RegisterPanel output = new RegisterPanel();
+        String[] arr;
+        arr = output.getUserInfo();
+        controller.performUseCase(arr[0], arr[1], arr[2]);
+
+        // call register panel
+
     }
 }
