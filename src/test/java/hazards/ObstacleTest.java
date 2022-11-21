@@ -1,7 +1,6 @@
 package hazards;
 
 
-import adapters.hazards.IHazardRequestModel;
 import entities.hazards.Obstacle;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -78,12 +77,9 @@ public class ObstacleTest {
     @Test
     public void OneByOneBlocksPlayer() {
         Obstacle o = new Obstacle(486, 333);
-        IHazardRequestModel player1 = new TestHazardRequestModel(486, 333);
-        IHazardRequestModel player2 = new TestHazardRequestModel(487, 333);
-        IHazardRequestModel player3 = new TestHazardRequestModel(486, 332);
-        Assertions.assertTrue(o.blocksPlayer(player1));
-        Assertions.assertFalse(o.blocksPlayer(player2));
-        Assertions.assertFalse(o.blocksPlayer(player3));
+        Assertions.assertTrue(o.blocksTile(486, 333));
+        Assertions.assertFalse(o.blocksTile(487, 333));
+        Assertions.assertFalse(o.blocksTile(486, 332));
     }
 
     /**
@@ -92,11 +88,8 @@ public class ObstacleTest {
     @Test
     public void BlocksPlayer() {
         Obstacle o = new Obstacle(100, 200, 32, 12);
-        IHazardRequestModel player1 = new TestHazardRequestModel(131, 200);
-        IHazardRequestModel player2 = new TestHazardRequestModel(99, 204);
-        IHazardRequestModel player3 = new TestHazardRequestModel(132, 202);
-        Assertions.assertTrue(o.blocksPlayer(player1));
-        Assertions.assertFalse(o.blocksPlayer(player2));
-        Assertions.assertFalse(o.blocksPlayer(player3));
+        Assertions.assertTrue(o.blocksTile(131, 200));
+        Assertions.assertFalse(o.blocksTile(99, 204));
+        Assertions.assertFalse(o.blocksTile(132, 202));
     }
 }

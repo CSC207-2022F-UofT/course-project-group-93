@@ -1,6 +1,6 @@
 package use_cases.hazards;
 
-import adapters.hazards.IHazardRequestModel;
+import entities.default_game.IDrawOutputBoundary;
 import entities.hazards.Obstacle;
 
 import java.util.ArrayList;
@@ -22,15 +22,12 @@ public class MazeObstacles {
         obstacles = new ArrayList<>();
     }
 
+
     /**
-     * Check whether the player is blocked by any obstacle.
+     * Check whether the given tile is blocked by an obstacle.
      */
-    public boolean isPlayerBlocked(IHazardRequestModel request) {
-        for (Obstacle obstacle : obstacles) {
-            if (obstacle.blocksPlayer(request))
-                return true;
-        }
-        return false;
+    public boolean isTileBlocked(int x, int y) {
+        return get(x, y) != null;
     }
 
     /**
@@ -45,7 +42,7 @@ public class MazeObstacles {
      */
     public Obstacle get(int x, int y) {
         for (Obstacle o : obstacles) {
-            if (o.blocksPoint(x, y)) {
+            if (o.blocksTile(x, y)) {
                 return o;
             }
         }
@@ -59,5 +56,12 @@ public class MazeObstacles {
         Obstacle obstacle = get(x, y);
         if (obstacle != null)
             obstacles.remove(obstacle);
+    }
+
+    /** Draw all obstacles in the maze. */
+    public void draw(IDrawOutputBoundary d) {
+        for (Obstacle obstacle: obstacles) {
+            obstacle.draw(d);
+        }
     }
 }

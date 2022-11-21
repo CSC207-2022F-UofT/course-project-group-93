@@ -2,8 +2,8 @@ package items;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import use_cases.CustomAssetSetter;
-import use_cases.MazeItems;
+import use_cases.default_game.CustomAssetSetter;
+import use_cases.items.MazeItems;
 import use_cases.hazards.MazeHazards;
 
 

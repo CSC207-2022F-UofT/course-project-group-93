@@ -1,11 +1,18 @@
 package entities.hazards;
 
-import adapters.hazards.IHazardRequestModel;
+import entities.default_game.Entity;
+import entities.default_game.IDrawOutputBoundary;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * An obstacle in a maze
  */
-public class Obstacle {
+public class Obstacle extends Entity {
     /**
      * The x position of the obstacle.
      */
@@ -22,6 +29,11 @@ public class Obstacle {
      * The height of the obstacle, in tiles.
      */
     private int height;
+    /**
+     * The image which the obstacle should be drawn with.
+     */
+    private BufferedImage image;
+
 
     /**
      * An exception indicating that the obstacle has been set to an invalid (zero or negative) size.
@@ -69,8 +81,11 @@ public class Obstacle {
 
 
     /**
-     * Construct a new obstacle at (x, y) with the given width and height.
-     * width and height must be positive, otherwise a BadSizeException will be thrown.
+     * Construct a new obstacle.
+     * @param x The X position of the obstacle.
+     * @param y The Y position of the obstacle.
+     * @param width The width of the obstacle. This must be positive, or a BadSizeException will be thrown.
+     * @param height The height of the obstacle. This must be positive, or a BadSizeException will be thrown.
      */
     public Obstacle(int x, int y, int width, int height) {
         this.x = x;
@@ -79,6 +94,7 @@ public class Obstacle {
         checkHeight(height);
         this.width = width;
         this.height = height;
+        setImageByName("rock");
     }
 
     /**
@@ -86,6 +102,31 @@ public class Obstacle {
      */
     public Obstacle(int x, int y) {
         this(x, y, 1, 1);
+    }
+
+
+    /**
+     * Set te image used to draw the obstacle.
+     *
+     * @param name The file name of the image not including the .png extension.
+     *             Currently, this should be "brick-wall", "tree", or "rock".
+     */
+    public void setImageByName(String name) {
+        InputStream imageStream = getClass().getClassLoader().getResourceAsStream("hazards/" + name + ".png");
+        if (imageStream != null) {
+            try {
+                setImage(ImageIO.read(imageStream));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Set the image used to draw the obstacle.
+     */
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 
     /**
@@ -149,17 +190,23 @@ public class Obstacle {
     /**
      * Check whether the obstacle blocks the given point.
      */
-    public boolean blocksPoint(int pointX, int pointY) {
+    public boolean blocksTile(int pointX, int pointY) {
         return pointX >= x && pointY >= y && pointX < x + width && pointY < y + height;
 
     }
 
-    /**
-     * Check whether the obstacle blocks the player.
-     */
-    public boolean blocksPlayer(IHazardRequestModel request) {
-        int playerX = request.getPlayerX();
-        int playerY = request.getPlayerY();
-        return blocksPoint(playerX, playerY);
+    /** Draw the obstacle. */
+    public void draw(IDrawOutputBoundary d) {
+        int tileSize = d.getTileSize();
+        Graphics2D g2 = d.graphics();
+        int xPixels = getX() * tileSize;
+        int yPixels = getY() * tileSize;
+        if (image != null) {
+            g2.drawImage(image, xPixels, yPixels, tileSize, tileSize, null);
+        } else {
+            // Failed to load image. Use a rectangle as a fallback.
+            g2.setColor(Color.BLACK);
+            g2.drawRect(xPixels, yPixels, tileSize, tileSize);
+        }
     }
 }

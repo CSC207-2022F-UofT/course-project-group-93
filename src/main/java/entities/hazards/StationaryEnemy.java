@@ -6,7 +6,9 @@ package entities.hazards;
 public class StationaryEnemy extends Enemy {
 
     /**
-     * Create a new stationary enemy at the given position.
+     * Create a new stationary enemy.
+     * @param startX The starting X position.
+     * @param startY The starting Y position.
      */
     public StationaryEnemy(int startX, int startY) {
         super(startX, startY);
@@ -18,7 +20,7 @@ public class StationaryEnemy extends Enemy {
     }
 
     @Override
-    public void update() {
+    public void update(IEnemyRequestModel request) {
         // we don't need to do anything here
     }
 

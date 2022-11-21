@@ -25,7 +25,7 @@ public class StationaryEnemyTest {
     @Test
     public void Update() {
         Enemy enemy = new StationaryEnemy(1, 2);
-        enemy.update();
+        enemy.update(null);
         Assertions.assertEquals(enemy.getX(), 1);
         Assertions.assertEquals(enemy.getY(), 2);
         Assertions.assertEquals(enemy.getStartX(), 1);

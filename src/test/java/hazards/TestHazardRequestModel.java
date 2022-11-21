@@ -1,6 +1,6 @@
 package hazards;
 
-import adapters.hazards.IHazardRequestModel;
+import entities.hazards.IHazardRequestModel;
 
 /**
  * an IHazardRequestModel implementation for testing only
@@ -33,4 +33,10 @@ public class TestHazardRequestModel implements IHazardRequestModel {
     public int getPlayerY() {
         return playerY;
     }
+
+    @Override
+    public int mazeWidth() { return 10; }
+
+    @Override
+    public int mazeHeight() { return 10; }
 }

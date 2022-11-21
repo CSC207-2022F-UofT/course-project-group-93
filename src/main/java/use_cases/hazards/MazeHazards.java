@@ -1,7 +1,9 @@
 package use_cases.hazards;
 
-import adapters.hazards.IHazardRequestModel;
+import entities.default_game.IDrawOutputBoundary;
 import entities.hazards.Enemy;
+import entities.hazards.IEnemyRequestModel;
+import entities.hazards.IHazardRequestModel;
 import entities.hazards.Obstacle;
 
 /**
@@ -44,7 +46,7 @@ public class MazeHazards {
      * Check whether the player is blocked by a hazard.
      */
     public boolean isPlayerBlocked(IHazardRequestModel request) {
-        return obstacles.isPlayerBlocked(request);
+        return obstacles.isTileBlocked(request.getPlayerX(), request.getPlayerY());
     }
 
     /**
@@ -59,8 +61,29 @@ public class MazeHazards {
      * This should be called at a fixed interval (e.g. every 0.5 seconds).
      * The game can be made more difficult by calling this more often, since enemies will move faster.
      */
-    public void update() {
-        enemies.update();
+    public void update(IHazardRequestModel request) {
+        enemies.update(new IEnemyRequestModel() {
+            @Override
+            public boolean isTileBlockedForEnemies(int x, int y) {
+                return obstacles.isTileBlocked(x, y);
+            }
+
+            @Override
+            public int getPlayerX() {
+                return request.getPlayerX();
+            }
+
+            @Override
+            public int getPlayerY() {
+                return request.getPlayerY();
+            }
+
+            @Override
+            public int mazeWidth() { return request.mazeWidth(); }
+
+            @Override
+            public int mazeHeight() { return request.mazeHeight(); }
+        });
     }
 
     /**
@@ -101,5 +124,13 @@ public class MazeHazards {
      */
     public void deleteObstacle(int x, int y) {
         obstacles.delete(x, y);
+    }
+
+    /**
+     * Draw all hazards in the maze.
+     */
+    public void draw(IDrawOutputBoundary d) {
+        obstacles.draw(d);
+        enemies.draw(d);
     }
 }
